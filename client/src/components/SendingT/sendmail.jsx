@@ -20,7 +20,7 @@ export default  function SendingEmail() {
     const handleSent = async () => {
         setSent(true)
         try {
-            await axios.post("http://localhost:3001/send-mail", email)
+            await axios.post("https://lavinotecapp.herokuapp.com/send-mail", email)
         } catch (error) {
             console.log(error)
         }

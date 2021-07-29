@@ -16,14 +16,14 @@ function GestionProductos() {
   const productDetail = useSelector(state => state.productDetail);
   const dispatch = useDispatch();
   useEffect(() => {
-    axios.get('http://localhost:3001/admin/productos/subcategories')
+    axios.get('https://lavinotecapp.herokuapp.com/admin/productos/subcategories')
     .then((response) =>setSubcategories(response.data))
   },[])
   //Cuando renderiza el componente, me trae todos los productos.
   useEffect(() => { 
       dispatch(getProducts());
   }, []);
-  useEffect(() =>axios.get(`http://localhost:3001/admin/productos/order?order=${toggle.order?'ASC':'DESC'}&type=${toggle.por?'name':'price'}&name=${toggle.filter}`)
+  useEffect(() =>axios.get(`https://lavinotecapp.herokuapp.com/admin/productos/order?order=${toggle.order?'ASC':'DESC'}&type=${toggle.por?'name':'price'}&name=${toggle.filter}`)
               .then(response =>{
               setAllProducts(response.data.rows)})
               ,[toggle])

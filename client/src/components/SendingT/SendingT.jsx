@@ -12,7 +12,7 @@
 //   sendText = () => {
 //     const { text } = this.state;
 //     //pass text message GET variables via query string
-//     fetch(`http://localhost:3001/send-sms?recipient=${text.recipient}&textmessage=${text.textmessage}`)
+//     fetch(`https://lavinotecapp.herokuapp.com/send-sms?recipient=${text.recipient}&textmessage=${text.textmessage}`)
 //     .catch(err => console.error(err))
 //   }
 
@@ -69,7 +69,7 @@ export default  function Sending() {
     const handleSent = async () => {
         setSent(true)
         try {
-            await axios.post("http://localhost:3001/send-sms", sms)
+            await axios.post("https://lavinotecapp.herokuapp.com/send-sms", sms)
         } catch (error) {
             console.log(error)
         }
