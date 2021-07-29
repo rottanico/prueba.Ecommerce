@@ -8,6 +8,7 @@ import Loading from "../loading/Loading";
 import Reviews from "../reviews/reviews";
 
 export default function Detail({ match }) {
+  console.log('MATCH', match)
   const dispatch = useDispatch();
 
 useEffect(() => {
@@ -58,7 +59,7 @@ useEffect(() => {
              
               <h2 id='price'>$ {detail.price}</h2>
               <div>
-            <button className='btn' type="button" onClick={() => addToCart(detail.id, console.log('5', detail.id))} class="btn bg-cart">
+            <button className='btn' type="button" onClick={() => addToCart(detail.id)} class="btn bg-cart">
           
               <i class="fa fa-cart-plus mr-2">Agregar</i>
             </button>

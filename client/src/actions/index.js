@@ -1,6 +1,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken'
 const {secret}= {secret:process.env.REACT_APP_SECRET_TOKEN};
+// export const DELETE_PROD_FROM_ORDER = 'DELETE_PROD_FROM_ORDER'
 export const GETCARDS = 'GETCARDS';
 export const GETDETAILS = 'GETDETAILS';
 export const GETNAMES = 'GETNAMES';
@@ -37,12 +38,30 @@ export const CHECKOUT = 'CHECKOUT'
 export const POST_REVIEW = 'POST_REVIEW'
 
 
+
+
+
+// export function deleteProdFromOrder(idOrder, idProd) {
+//   return (dispatch) => {
+//     axios.delete(`http://localhost:3001/admin/pedidos/id/${idOrder}?idProd=${idProd}`)
+//       .then(response => {
+//         if (response) alert('Se eliminó producto del pedido');
+//         dispatch({
+//           type: DELETE_PROD_FROM_ORDER,
+//           payload: idProd
+//         })
+//       })
+//         .catch((err) => {
+//           console.log(err)
+//         })
+//   }
+// }
+
 export function getUser(mail) {
   return (dispatch) => {
     try {
-      axios.get('https://lavinotecapp.herokuapp.com/admin/userMail?mail=' + mail)
+      axios.get('http://localhost:3001/admin/userMail?mail=' + mail)
       .then(response => 
-      
         dispatch({
         type: POST_USER,
         payload: response.data
@@ -58,7 +77,7 @@ export function postReview(id,review) {
   return (dispatch) => {
     try {
     console.log('LA',review)
-    axios.post('https://lavinotecapp.herokuapp.com/reviews/'+id, review)
+    axios.post('http://localhost:3001/reviews/'+id, review)
     .then(response => 
       dispatch({
       type: POST_REVIEW,
@@ -84,7 +103,7 @@ export function carritoEstado() {
 
 export function getpedidosUser(id) {
   return (dispatch) => {
-    axios.get(`https://lavinotecapp.herokuapp.com/pedidos/${id}`)
+    axios.get(`http://localhost:3001/pedidos/${id}`)
       .then(response => {
         console.log(response.data)
         dispatch({
@@ -99,7 +118,7 @@ export function getpedidosUser(id) {
 };
 export function getPedidoUser(id) {
   return (dispatch) => {
-    axios.get(`https://lavinotecapp.herokuapp.com/pedido/${id}`)
+    axios.get(`http://localhost:3001/pedido/${id}`)
       .then(response => {
         console.log(response.data)
         dispatch({
@@ -116,8 +135,8 @@ export function getPedidoUser(id) {
 
 export function orderPost(order) {
   return (dispatch) => {
-    // axios.post('https://lavinotecapp.herokuapp.com/orderPost', order)
-    axios.post('https://lavinotecapp.herokuapp.com/admin/orderPost', order)
+    // axios.post('http://localhost:3001/orderPost', order)
+    axios.post('http://localhost:3001/admin/orderPost', order)
     .then(response=> console.log(response))
 
   }
@@ -141,7 +160,7 @@ export function addProductCart(payload) {
 
 export function getDetail(id) {
   return (dispatch) => {
-    axios.get('https://lavinotecapp.herokuapp.com/productos/' + id)
+    axios.get('http://localhost:3001/productos/' + id)
       .then(response => {
         dispatch({
           type: GETDETAILS,
@@ -187,7 +206,7 @@ export function ClearCart() { //ver que le pasamos al reducer
 
 export function getProducts() {
   return (dispatch) => {
-    axios.get('https://lavinotecapp.herokuapp.com/productos/all')
+    axios.get('http://localhost:3001/productos/all')
       .then(response => {
         dispatch({
           type: GETCARDS,
@@ -208,7 +227,7 @@ export function orderProduct({
 }) {
   return (dispatch) => {
     const datos = `offset=${offset}&${type}=type&${order}=order&${name}=name`
-    axios.get('https://lavinotecapp.herokuapp.com/admin/productos/order?' + datos)
+    axios.get('http://localhost:3001/admin/productos/order?' + datos)
       .then(response => {
         dispatch({
           type: ORDERPRODUCT,
@@ -224,7 +243,7 @@ export function orderProduct({
 export function getNames() {
   return (dispatch) => {
     
-    axios.get('https://lavinotecapp.herokuapp.com/admin/productos/names')
+    axios.get('http://localhost:3001/admin/productos/names')
       .then(response => {
         dispatch({
           type: GETNAMES,
@@ -241,7 +260,7 @@ export function getNames() {
 //USUARIOS GET, POST Y PUT y DELETE
 export function getAllUsers() {
   return (dispatch) => {
-    axios.get("https://lavinotecapp.herokuapp.com/admin/users/all")
+    axios.get("http://localhost:3001/admin/users/all")
       .then((response) => {
         dispatch({
           type: GET_ALL_USERS,
@@ -256,7 +275,7 @@ export function getAllUsers() {
 
 export function getUserDetails(id) {
   return (dispatch) => {
-    axios.get("https://lavinotecapp.herokuapp.com/admin/users/id/" + id)
+    axios.get("http://localhost:3001/admin/users/id/" + id)
       .then((response) => {
         dispatch({
           type: GET_USER_DETAILS,
@@ -275,7 +294,7 @@ export function crearUsuario(payload) {
     //const token =jwt.sign({ mail: payload.mail },secret);
     //const user={...payload,token}
    
-    const response = await axios.post('https://lavinotecapp.herokuapp.com/clientesPost', payload);
+    const response = await axios.post('http://localhost:3001/clientesPost', payload);
     dispatch({type:POST_USER, payload: response.data})
   }
 }
@@ -284,7 +303,7 @@ export function postUsuarios(usuario) {
   return (dispatch) => {
     const token =jwt.sign({ mail: usuario.mail },secret);
     const user={...usuario,token}
-    axios.post('https://lavinotecapp.herokuapp.com/admin/clientesPost', user)
+    axios.post('http://localhost:3001/admin/clientesPost', user)
       .then((response) => {
         alert('El usuario se creó correctamente')
       })
@@ -298,8 +317,9 @@ export function postUsuarios(usuario) {
 export function putUsuariosByadmin(id, usuario,token) {
   return (dispatch) => {
    const user={...usuario,token}
-    axios.put("https://lavinotecapp.herokuapp.com/admin/users/" + id, user)
+    axios.put("http://localhost:3001/admin/users/" + id, user)
       .then((response) => {
+        if (response) alert ('El usuario se modificó correctamente');
         dispatch({
           type: PUT_USER,
           payload: response.data
@@ -312,11 +332,11 @@ export function putUsuariosByadmin(id, usuario,token) {
   }
 }
 // export function putUsuarios(usuario) {
-//   axios.put(`https://lavinotecapp.herokuapp.com/admin/users/${usuario.id}`, usuario)
+//   axios.put(`http://localhost:3001/admin/users/${usuario.id}`, usuario)
 export function putUsuarios(id, usuario) {
   return (dispatch) => {
     const user = window.localStorage.getItem('user')
-    axios.put("https://lavinotecapp.herokuapp.com/users/" + id, usuario)
+    axios.put("http://localhost:3001/users/" + id, usuario)
       .then((response) => {
         dispatch({
           type: PUT_USER,
@@ -331,18 +351,18 @@ export function putUsuarios(id, usuario) {
 }
 
 export function deleteUsuarios(id) {
-  axios.delete(`https://lavinotecapp.herokuapp.com/admin/client/${id}`)
+  axios.delete(`http://localhost:3001/admin/client/${id}`)
 }
 
 //PRODUCTOS POST, PUT, DELETE Y GET DETAILS
 export function addProduct(product) {
   //   return (dispatch) => {
-  //     axios.post('https://lavinotecapp.herokuapp.com/admin/productos', product)
+  //     axios.post('http://localhost:3001/admin/productos', product)
   //   }
   // }
   // }
   return (dispatch) => {
-    axios.post("https://lavinotecapp.herokuapp.com/admin/productos", product)
+    axios.post("http://localhost:3001/admin/productos", product)
       .then((response) => {
         if (response) alert('El producto se creó correctamente');
         dispatch({
@@ -358,7 +378,7 @@ export function addProduct(product) {
 }
 export function Checkout(payload) {
   return (dispatch) => {
-    axios.post("https://lavinotecapp.herokuapp.com/checkout", payload)
+    axios.post("http://localhost:3001/checkout", payload)
       .then((response) => {
         console.log('action gatoo', response)
         // if (response) alert('El producto se creó correctamente');
@@ -375,9 +395,32 @@ export function Checkout(payload) {
   };
 }
 // export async function editProduct(id, payload) {
-//   await axios.put('https://lavinotecapp.herokuapp.com/admin/productos/' + id, payload)
+//   await axios.put('http://localhost:3001/admin/productos/' + id, payload)
+
+export async function editManyProducts(array) {
+ array.map(async producto => { 
+   try{
+     console.log('entra aca')
+     await axios.put("http://localhost:3001/admin/productos/" + producto.id, producto.modify)
+   } catch (err) {
+     console.log(err)
+   }
+      // .then((response) => {
+      //   //if (response) alert('El producto se modificó correctamente');
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // })
+  })
+  Promise.all(array)
+  .then(function() { alert('Los productos se modificaron correctamente') })
+  
+}
+
+
 export async function editProduct(id, payload) {
-  await axios.put("https://lavinotecapp.herokuapp.com/admin/productos/" + id, payload)
+  // console.log('entra aca')
+  await axios.put("http://localhost:3001/admin/productos/" + id, payload)
     .then((response) => {
       if (response) alert('El producto se modificó correctamente');
     })
@@ -386,9 +429,9 @@ export async function editProduct(id, payload) {
     });
 }
 // export async function deleteProduct(id) {
-//   await axios.delete(`https://lavinotecapp.herokuapp.com/admin/producto/${id}`)
+//   await axios.delete(`http://localhost:3001/admin/producto/${id}`)
 export async function deleteProduct(id) {
-  await axios.delete(`https://lavinotecapp.herokuapp.com/admin/producto/${id}`)
+  await axios.delete(`http://localhost:3001/admin/producto/${id}`)
     .then((response) => {
       if (response) alert('El producto se eliminó correctamente');
     })
@@ -400,7 +443,7 @@ export async function deleteProduct(id) {
 //PEDIDOS
 export function getAllPedidos() {
   return (dispatch) => {
-    axios.get('https://lavinotecapp.herokuapp.com/admin/pedidos/all')
+    axios.get('http://localhost:3001/admin/pedidos/all')
       .then(response => {
         dispatch({
           type: GETALLPEDIDOS,
@@ -417,7 +460,7 @@ export function getAllPedidos() {
 export function getPedidosByState(state) {
   return async (dispatch) => {
     try {
-      const response = await axios.get("https://lavinotecapp.herokuapp.com/admin/pedidos/filter?valor=" + state)
+      const response = await axios.get("http://localhost:3001/admin/pedidos/filter?valor=" + state)
         .then(response => {
           dispatch({
             type: GETPEDIDOSBYSTATE,
@@ -447,7 +490,7 @@ export function deleteLocalStorage(payload) {
 
 export function getPedidoDetail(id) {
   return (dispatch) => {
-    axios.get('https://lavinotecapp.herokuapp.com/admin/detallePedido/' + id)
+    axios.get('http://localhost:3001/admin/detallePedido/' + id)
       .then(response => {
         dispatch({
           type: GETPEDIDODETAIL,
@@ -460,11 +503,11 @@ export function getPedidoDetail(id) {
   }
 }
 // export async function editProduct(id, payload) {
-//   await axios.put('https://lavinotecapp.herokuapp.com/admin/productos/' + id, payload)
+//   await axios.put('http://localhost:3001/admin/productos/' + id, payload)
 
 
 // export async function deleteProduct(id) {
-//   await axios.delete(`https://lavinotecapp.herokuapp.com/admin/producto/${id}`)
+//   await axios.delete(`http://localhost:3001/admin/producto/${id}`)
 
 
 //PEDIDOS
@@ -473,8 +516,9 @@ export function getPedidoDetail(id) {
 
 export function putPedido(id, payload) {
   return (dispatch) => {
-    axios.put(`https://lavinotecapp.herokuapp.com/admin/pedidos/id/${id}`, payload)
+    axios.put(`http://localhost:3001/admin/pedidos/id/${id}`, payload)
       .then(response => {
+        if(response) alert('el pedido se modificó correctamente');
         dispatch({
           type: PUTPEDIDO,
           payload: response.data
@@ -500,7 +544,7 @@ export function repeatOrder(payload) {
 
 export function addToWishList(id,pId) {
   return (dispatch) => {
-    axios.post(`https://lavinotecapp.herokuapp.com/favoritos/${id}`, pId)
+    axios.post(`http://localhost:3001/favoritos/${id}`, pId)
       .then(response => {
        console.log(response.data)
         dispatch({
@@ -515,7 +559,7 @@ export function addToWishList(id,pId) {
 };
 export function getFavorites(id) {
   return (dispatch) => {
-    axios.get('https://lavinotecapp.herokuapp.com/favorites/'+id)
+    axios.get('http://localhost:3001/favorites/'+id)
       .then(response => {
         dispatch({
           type: GETFAVORITES,
@@ -533,7 +577,7 @@ export function getFavorites(id) {
 export function removeFromWishlist(id,pId) {
   return (dispatch) => {
     console.log(pId,'action...........')
-    axios.delete(`https://lavinotecapp.herokuapp.com/favoritos/${id}?product=${pId}`)
+    axios.delete(`http://localhost:3001/favoritos/${id}?product=${pId}`)
     .then(response => {
      
       dispatch({
@@ -550,7 +594,7 @@ export function removeFromWishlist(id,pId) {
 export function sendMail(payload){
   console.log('anda',payload)
   return (dispatch)=>{
-    axios.post('https://lavinotecapp.herokuapp.com/send-mail', payload)//req.body.mail, req.body.subject, req.body.text
+    axios.post('http://localhost:3001/send-mail', payload)//req.body.mail, req.body.subject, req.body.text
   }
 }
 
@@ -558,7 +602,7 @@ export function sendMail(payload){
 
 // export function getNamesQuery(name){
 //     return (dispatch) => {
-//         axios.get('https://lavinotecapp.herokuapp.com/productos/?name='+ name)
+//         axios.get('http://localhost:3001/productos/?name='+ name)
 //         .then(response => {
 //             dispatch({ type: GETNAMESQ, payload: response.data})
 //         })
