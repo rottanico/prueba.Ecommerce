@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import Dashboard from '../pages/dashboard/Dashboard';
-import Sidebar from '../sidebar/Sidebar';
 import Users from '../pages/users/Users';
 import Products from '../pages/products/Products';
 import Deliverys from '../pages/deliverys/Delivery';
-import LoadingAdmin from '../loading/LoadingAdmin';
+import LoadingAdmin from '../loading/LoadingUser';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 export default function Layout() {
@@ -19,7 +18,6 @@ export default function Layout() {
   } else
   return (
     <Router>
-      <Sidebar />
       <Switch>
         <Route component={Dashboard} exact path="/dashboard-admin/" />
         <Route component={Users} exact path="/dashboard-admin/usuarios" />

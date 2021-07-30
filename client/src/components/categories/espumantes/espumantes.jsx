@@ -4,12 +4,10 @@ import { getProducts, addProductCart, addToWishList } from "../../../actions/ind
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
-import Nav from '../../navbar/navbar';
 import StyledDiv from "../../detail/styled";
-import NavCategories from "../../navCategories/navCategories";
-import Footer from "../../footer/footer";
-import Loading from "../../loading/Loading";
+import Loading from "../../dashboard-user/loading/LoadingAdmin";
 import ProductRating from "../../productRating/productRating";
+import swal from 'sweetalert';
 
 function Espumantes() {
   const dispatch = useDispatch();
@@ -26,6 +24,7 @@ function Espumantes() {
     // console.log('ELUSER', Uid, 'ELFAV', productId)
     let body = { productId: productId };
     dispatch(addToWishList(Uid, body));
+    swal("Se agregó a Favoritos!", 'Podrás ver este producto en tu sección Favoritos siempre que estes logueado.', "success");
   };
   const showProducts = allProducts
     .filter((el) => el.type === "Espumantes")
@@ -64,13 +63,16 @@ function Espumantes() {
 
   useEffect(() => {
     const dbProducts = () => {
-      setAllProducts(product);
+      setAllProducts(product.filter(el=>el.type === "Espumantes"));
+      console.log(allProducts.length)
     };
     dbProducts();
   }, [product]);
 
-  if (numberPage < 1) setnumberPage(1);
-  if (numberPage > 3) setnumberPage(3);
+  useEffect(() => {
+    if (numberPage < 1) setnumberPage(1);
+    if (numberPage > Math.ceil(allProducts.length/9)) setnumberPage(numberPage-1); 
+  }, [allProducts, numberPage]);
 
   const handleCategories = () => {
     setAllProducts(product);
@@ -92,8 +94,6 @@ function Espumantes() {
   } else {
     return (
       <>
-        <Nav />
-        <NavCategories />
         <StyledDiv>
           <div class="d-flex justify-content-center-md-center mt-5" >
             <div class="btn-group-vertical col-sm-2 mt-5 mb-1 justify-content-start md-start ">
@@ -118,7 +118,7 @@ function Espumantes() {
                             <div class="card">
                               <div class="card-body">
                                 <div class="card-img-actions">
-                                  <Link to={`/detail/${el.id}`}>
+                                  <Link to={`/home/detail/${el.id}`}>
                                     <img
                                       src={el.image}
                                       class="card-img img-fluid"
@@ -131,7 +131,7 @@ function Espumantes() {
                               <div class="card-body bg-light text-center">
                                 <div class="mb-2">
                                   <h6 class="font-weight-semibold mb-2">
-                                    <a href={`/detail/${el.id}`} class="text-default mb-2"
+                                    <a href={`/home/detail/${el.id}`} class="text-default mb-2"
                                       data-abc="true">
                                       {el.name}
                                     </a>
@@ -165,7 +165,6 @@ function Espumantes() {
             </div>
           </div>
         </StyledDiv>
-        <Footer />
       </>
     );
   }
