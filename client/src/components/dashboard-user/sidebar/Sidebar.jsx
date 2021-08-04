@@ -8,7 +8,7 @@ import * as AiIcons from 'react-icons/ai';
 import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
-import logo from './logo.png';
+import logo from '../../../assets/images/LogoFin.png';
 import SearchBar from '../../searchbar/searchbar';
 import {FiShoppingCart} from 'react-icons/fi';
 import {FaRegUser} from 'react-icons/fa';
@@ -20,10 +20,10 @@ import './sidebar.css';
 const Nav = styled.div`
 background: black;
 height: 80px;
-display: flex;
-justify-content: flex-start;
 align-items: center;
 `;
+// display: flex;
+// justify-content: flex-start;
 
 const NavIcon = styled(Link)`
 margin-left: 2rem;
@@ -36,7 +36,7 @@ align-items: center;
 
 const SidebarNav = styled.nav`
 background: black;
-width: 235px;
+width: 14rem;
 height: 100vh;
 display: flex;
 justify-content: center;
@@ -60,7 +60,6 @@ const Sidebar = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     setIsOpen(true);
-    console.log('holacami')
   };
 
   const history = useHistory();
@@ -88,20 +87,22 @@ const Sidebar = () => {
   return (
     <>
       <IconContext.Provider value={{ color: 'white' }}>
-        <Nav>
+        <div className='Nav'>
           <NavIcon to='#'>
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
-          <div className='logo'>
-            <a href="/home">
-              <img src={logo} alt='Logo' className="logo"/>
-            </a>
-          </div>
-            <div className="searchBar">
+                <div className='logoHiden'>
+                  <a href="/home">
+                    <img src={logo} alt='Logo' className="logo"/>
+                  </a>
+                </div>
+            
+             <div className="searchBar">
                 <SearchBar />
             </div>
+
             <div>
-            <ul className="d-flex">
+                <ul className="d-flex">
             <li>
             {currentUser ? (
                   <Dropdown class="">
@@ -139,20 +140,21 @@ const Sidebar = () => {
               </li>
             </li>
           </ul>
+            </div>
+            
+            <NavModal open={isOpen} onClose={() => setIsOpen(false)}>
+            </NavModal>
         </div>
-        <NavModal open={isOpen} onClose={() => setIsOpen(false)}>
-        </NavModal>
-        </Nav>
-        <SidebarNav sidebar={sidebar}>
-          <SidebarWrap>
-            <NavIcon to='#'>
-              <AiIcons.AiOutlineClose onClick={showSidebar} />
-            </NavIcon>
-            {SidebarData.map((item, index) => {
-              return <SubMenu item={item} key={index} />;
-            })}
-          </SidebarWrap>
-        </SidebarNav>
+                  <SidebarNav sidebar={sidebar}>
+                    <SidebarWrap>
+                      <NavIcon to='#'>
+                        <AiIcons.AiOutlineClose onClick={showSidebar} />
+                      </NavIcon>
+                      {SidebarData.map((item, index) => {
+                        return <SubMenu item={item} key={index} />;
+                      })}
+                    </SidebarWrap>
+                  </SidebarNav>
       </IconContext.Provider>
     </>
   )
