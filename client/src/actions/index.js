@@ -76,7 +76,7 @@ export function getUser(mail) {
 export function postReview(id,review) {
   return (dispatch) => {
     try {
-    console.log('LA',review)
+  
     axios.post('https://lavinotecapp.herokuapp.com/reviews/'+id, review)
     .then(response => 
       dispatch({
@@ -105,7 +105,7 @@ export function getpedidosUser(id) {
   return (dispatch) => {
     axios.get(`https://lavinotecapp.herokuapp.com/pedidos/${id}`)
       .then(response => {
-        console.log(response.data)
+      
         dispatch({
           type: PEDIDOSUSER,
           payload: response.data
@@ -120,7 +120,7 @@ export function getPedidoUser(id) {
   return (dispatch) => {
     axios.get(`https://lavinotecapp.herokuapp.com/pedido/${id}`)
       .then(response => {
-        console.log(response.data)
+        
         dispatch({
           type: PEDIDOUSER,
           payload: response.data
@@ -380,7 +380,7 @@ export function Checkout(payload) {
   return (dispatch) => {
     axios.post("https://lavinotecapp.herokuapp.com/checkout", payload)
       .then((response) => {
-        console.log('action gatoo', response)
+     
         // if (response) alert('El producto se creó correctamente');
         return window.location = response.data;
         // dispatch({
@@ -389,7 +389,7 @@ export function Checkout(payload) {
         // });
       })
       .catch((err) => {
-        console.log('llevame a mercado pago!!!', err);
+        console.log (err);
       });
 
   };
