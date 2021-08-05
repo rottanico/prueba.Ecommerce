@@ -1,11 +1,23 @@
 .title{
   margin-left: 20px;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .sub-title{
   margin-left: 20px;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 .map{
   margin-left:20px;
+
+}
+.mapaa{
+    width:400px;
+  height:350px;
+}
+@media (max-width: 576px){
+  .mapaa{
+    width:275px;
+    height:250px;
+    margin-left: 0 !important;
+  }
 }

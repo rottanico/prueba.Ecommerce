@@ -19,7 +19,7 @@ export function validate(input) {
     } else {
         if (!input.password) {
             errors.password = 'Password is required';
-        } else if (!/(?=.*[0-9])/.test(input.password)) {
+        } else if (!/(?=.*)/.test(input.password)) {
             errors.password = 'Password is invalid';
         }
     }
@@ -32,8 +32,10 @@ export default function Login({ onClose }) {
     const user = window.localStorage.getItem('user')?user1:null
     const dispatch = useDispatch()
     const emailRef = useRef()
+    console.log('email', emailRef)
     const passwordRef = useRef()
     const { login } = useAuth()
+    console.log(login)
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const history = useHistory()
@@ -94,34 +96,34 @@ useEffect(async () => {
     }
 
     //<div className='back'><Link to='/'>BACK TO ANIME DATABASE</Link></div>
-    console.log('hola',user1)
+    //console.log('hola',user1)
 // if(user.admin)
     return (
         <>
         <StyledDiv>
-        <div className='container' >
+        <div className='container' class='m-2'>
             <form className='formulariodeLogin' method='post' onSubmit={HandleSubmit}>
-                {<p>{error}</p>}
-                <div className='email'>
-                    <label className='mr-4'>Correo Electronico: </label>
-                    <input type='text' name='email' ref={emailRef} value={input.email} onChange={handleInputChange} required />
+                
+                <div className='email' class='m-2'>
+                    <label>Correo Electronico: </label>
+                    <input type='text' class='m-2' name='email' ref={emailRef} value={input.email} onChange={handleInputChange} required='' />
                     <span></span>
                     {errors.email && (
                         <p className="danger">{errors.email}</p>
                     )}
                 </div>
-                <div className='password'>
-                    <label className='mr-4'>Contraseña: </label>
-                    <input type='password' name='password' ref={passwordRef} value={input.password} onChange={handleInputChange} required />
+                <div className='password' class='m-2'>
+                    <label >Contraseña: </label>
+                    <input type='password' class='m-2' name='password' ref={passwordRef} value={input.password} onChange={handleInputChange} required='' />
                     <span></span>
                     {errors.password && (
                         <p className="danger">{errors.password}</p>
                     )}
                 </div>
                 <div className='pass'>
-                    <Link className='pass' style={{color: '#ebc28e'}} to='/forgot-password'>Olvidaste tu contraseña?</Link>
+                    <Link className='pass' class='m-2' style={{color: '#ebc28e'}} to='/forgot-password'>Olvidaste tu contraseña?</Link>
                 </div>
-                <button disabled={loading} className='btn btn-light LogIn' type='submit'>Ingresar</button>
+                <button disabled={loading} className='btn btn-light m-2 LogIn' style={{minWidth: '8rem'}}>Ingresar</button>
             </form>
             {/* <div className='signup_link'>No estas registrado?<Link className='signup_link2' to='/signup'>Registrate!</Link></div> */}
         </div>

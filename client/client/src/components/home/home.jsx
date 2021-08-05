@@ -14,15 +14,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import ProductRating from "../productRating/productRating";
 import Roboto from "../chatbot/Chatbot";
-// import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
-// import Loading from '../../components/dashboard-user/loading/LoadingAdmin';
 import Footer from '../../components/footer/footer';
-import Sending from "../SendingT/SendingT";
-import SendingEmail from "../SendingT/sendmail";
-import Maps from '../Maps/maps'
 import Sugeridos from '../sugeridos/sugeridos'
-// import ContactUser from '../ContactUser/ContactUser'
 import Loading from '../loading/Loading';
 import swal from 'sweetalert';
 
@@ -33,16 +27,13 @@ export default function Home({ location }) {
   const productDetail = useSelector((state) => state.productDetail);
   const wishList = useSelector((state) => state.wishList);
 
-  console.log('product',product)
 
-  // const cart = useSelector((state) => state.productCart);
   const history = useHistory();
-  // console.log(historial)
+ 
   const [allProducts, setAllProducts] = useState([]);
   const [page, setPage] = useState(1);
   const pago = JSON.parse(window.localStorage.getItem("pago"));
   const cart = JSON.parse(window.localStorage.getItem("array"));
-  console.log('cart',cart)
   useEffect(() => {
     let historial = history.location.search.includes("&status=")
       ? history.location.search.split("&status=")[1].split("&")[0]
@@ -51,7 +42,6 @@ export default function Home({ location }) {
       ? history.location.search.split("payment_id=")[1].split("&")[0]
       : null;
     if (historial && historial === "approved") {
-      console.log(54);
       let aux = 0;
       cart?.forEach((e) => (aux = aux + e.price * e.cantidad));
       let productsArray = cart?.map(
@@ -76,7 +66,6 @@ export default function Home({ location }) {
         : console.log("user is null");
       if (completo) {
         dispatch(orderPost(completo));
-        console.log("hola");
         window.localStorage.removeItem("array");
         dispatch(ClearCart());
       }
@@ -94,7 +83,7 @@ export default function Home({ location }) {
         parseInt(location ? location.search.slice(location.search.indexOf("=") + 1): 1)
       );
     }
-    console.log(page)
+    
   }, [location?.search]);
 
   useEffect(() => {
@@ -135,14 +124,11 @@ export default function Home({ location }) {
   //   return <Loading />
   // } else {
     return (
-      <>
+      <>  
         <Roboto />
         <Sugeridos/>
         <StyledDiv>
-          <div>
-            <div className="div_container">
-              <div class="container d-flex justify-content-center mt-50 mb-50">
-                <div class="row container-product">
+              <div class="row container-product container div_container d-flex justify-content-center mt-50 mb-50">
                   {allProducts && allProducts.length > 0
                     ? allProducts.slice((page - 1) * 9, page * 9).map((el) => {
                       return (el.stock > 0 ? (
@@ -154,7 +140,8 @@ export default function Home({ location }) {
                                     <Link to={`/home/detail/${el.id}`}>
                                       <img
                                         src={el.image}
-                                        class="card-img img-fluid"
+                                        // class="card-img img-fluid"
+                                        className="cardImg"
                                         height="100"
                                         alt=""
                                       />
@@ -163,11 +150,12 @@ export default function Home({ location }) {
                                 </div>
                                 <div class="card-body bg-light text-center">
                                   <div class="mb-2">
-                                    <h6 class="font-weight-semibold mb-2">
+                                    <h6>
+                                    {/* <h6 class="font-weight-semibold mb-2"> */}
                                       {" "}
                                       <a
                                         href={`/home/detail/${el.id}`}
-                                        class="text-default mb-2"
+                                        class="text-default mb-2 "
                                         data-abc="true"
                                       >
                                         {el.name}
@@ -199,24 +187,21 @@ export default function Home({ location }) {
                                   <button
                                     type="button"
                                     onClick={() => addToCart(el.id)}
-                                    class="btn btn-secondary"
+                                    // class="btn btn-secondary"
+                                    className='Agregar'
                                   >
                                     <i class="fa fa-cart-plus mr-0"></i>Agregar</button>
                                 </div>
                               </div>
                             </div>
                           </>
-                        ) : console.log('null') );
+                        ) :null);
                       })
-                    : console.log('null')}
-                </div>
+                    :null}
               </div>
-            </div>
-          </div>
         </StyledDiv>
         <Pages product={product} page={page} />
         <Footer />
       </>
     );
-  
 }
