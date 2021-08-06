@@ -61,7 +61,7 @@ useEffect(() => {
               <h2 id='price'>$ {detail.price}</h2>
               <div>
               <div class='d-flex align-items-center justify-content-center'>
-            <button style={{marginBottom: '2%'}} class='btn btn bg-cart' type="button" onClick={() => addToCart(detail.id)} >
+            <button style={{marginBottom: '2%',minWidth: '8rem'}} class='btn btn bg-cart' type="button" onClick={() => addToCart(detail.id)} >
               <i class="fa fa-cart-plus mr-2">Agregar</i>
             </button></div>
             <div/>

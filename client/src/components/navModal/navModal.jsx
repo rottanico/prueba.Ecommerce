@@ -96,16 +96,17 @@ export default function NavModal({ open, children, onClose }) {
   return ReactDom.createPortal(
     <StyledDiv>
       {currentUser ? (
-        <div style={OVERLAY_STYLES}>
+         <div style={OVERLAY_STYLES}>
           <div style={MODAL_STYLES}>
-              <div className='d-flex justify-content-end' >
+              <div className='d-flex justify-content-end m-0' >
                   <CloseIcon className='bClose' onClick={handleClose} style={{height: '1.7rem', width:'2rem', color:'dc3545',borderRadius:'2px',marginLeft:'100%'}}/>
               {/* <div className='d-flex justify-content-end'>
                   <CloseIcon className='bClose' onClick={handleClose} style={{height: '2.2rem', width:'3rem', color:'white',borderRadius:'2px'}}/> */}
               </div>
-              <div>
+               <div>
                 <p style={{marginTop:'1rem'}}>¡Ahora estas logueado!</p>
-              </div>
+
+              </div> 
             <button
               class="btn btn-light bLogout"
               // className='bLogout'
@@ -115,8 +116,9 @@ export default function NavModal({ open, children, onClose }) {
             >
               Desloguearse
             </button>
+
           </div>
-        </div>
+        </div> 
       ) : (
         <div style={OVERLAY_STYLES}>
           <div style={MODAL_STYLES}>
@@ -127,14 +129,14 @@ export default function NavModal({ open, children, onClose }) {
             </div>
             
             {signup === true || login === true ? (
-              <div>
-              <button className="btn btn-light"   onClick={handleBackClose}>
+              <div  style={{minWidth: '8rem'}}>
+              <button className="btn btn-light " style={{minWidth: '8rem'}}  onClick={handleBackClose}>
                 Volver
               </button>
               </div>
             ) : (
               <>
-              <div className='d-flex justify-content-end' style={{width: '120%'}}>                
+              <div className='d-flex justify-content-end' style={{width: '100%', height: 'auto', margin: '0'}}>                
               <CloseIcon className='icon' onClick={handleClose} style={{height: '1.2rem'}}/>
               </div>
               <div
@@ -142,13 +144,13 @@ export default function NavModal({ open, children, onClose }) {
                 role="group"
                 aria-label="Basic outlined example"
               >
-                <button class="btn btn-light mb-3 mt-3" onClick={handleSignup}>
+                <button style={{minWidth: '7rem'}} class="btn btn-light mb-3 mt-3" onClick={handleSignup}>
                   Registrate
                 </button>
-                <button class="btn btn-light mb-3" onClick={handleLogin1}>
-                  Logueate con tu mail
+                <button style={{minWidth: '7rem'}} class="btn btn-light mb-3" onClick={handleLogin1}>
+                  Logueate
                 </button>
-                <button class="btn btn-light" onClick={handleGoogle}>
+                <button style={{minWidth: '7rem'}} class="btn btn-light" onClick={handleGoogle}>
                   Logueate con <img className="logo-google" src={logo} />
                 </button>
               </div>
