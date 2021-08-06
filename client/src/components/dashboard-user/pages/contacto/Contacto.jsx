@@ -57,7 +57,7 @@ if (!loading) {
                     </div>
                   </div>
                   <div className="mb-3 text-center">
-                    <input className="btn btn-dark mb-2" type="submit" value="Enviar" />
+                    <input className="btn btn-dark mb-2" style={{minWidth: '8rem'}}type="submit" value="Enviar" />
                 </div>
               </form>
             </div>

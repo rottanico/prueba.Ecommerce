@@ -122,7 +122,7 @@ export default function Dashboard() {
                           </input></div>
                           
 
-                          <div class="col-sm-8"> <button class="btn btn-dark btn-lg btn-block mt-3 ml-1" name='submit' type='submit' onClick={() => { putSubmit(user, user) }}> CONFIRMAR MODIFICACIÓN</button></div>
+                          <div class="col-sm-8"> <button class="btn btn-dark btn-lg btn-block mt-3 ml-1" style={{minWidth: '9rem'}} name='submit' type='submit' onClick={() => { putSubmit(user, user) }}> CONFIRMAR MODIFICACIÓN</button></div>
                     
                     </form>
                     <div class=" col-sm-8 col-md-7 col-lg-7 mt-1 ml-1 RespButtonss">

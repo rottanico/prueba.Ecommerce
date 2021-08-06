@@ -26,7 +26,7 @@ export const LandingPage = () => {
             <p className="msg">VINOS - ESPUMANTES - WHISKIES - CERVEZAS</p>
             <div className="div_btn">
               <Link to="/home">
-                <button className="btn btn-dark">ENTRAR</button>
+                <button className="btn btn-dark" style={{minWidth: '8rem'}}>ENTRAR</button>
                 {/* <img src={saca} alt="" />*/}
               </Link>
             </div>
